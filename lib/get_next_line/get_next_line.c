@@ -6,7 +6,7 @@
 /*   By: yeblee <yeblee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 12:08:56 by yeblee            #+#    #+#             */
-/*   Updated: 2022/05/24 12:29:41 by yeblee           ###   ########.fr       */
+/*   Updated: 2022/08/19 01:20:41 by yeblee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ char	*gnl_read_file(int fd, char *res)
 	return (res);
 }
 
-t_list	*gnl_get_node(t_list *head, int fd)
+t_gnl_list	*gnl_get_node(t_gnl_list *head, int fd)
 {
-	t_list	*node;
+	t_gnl_list	*node;
 
 	node = head->next;
 	while (node)
@@ -84,7 +84,7 @@ t_list	*gnl_get_node(t_list *head, int fd)
 		else
 			node = node->next;
 	}
-	node = malloc(sizeof(t_list));
+	node = malloc(sizeof(t_gnl_list));
 	if (!node)
 		return (NULL);
 	node->fd = fd;
@@ -99,8 +99,8 @@ t_list	*gnl_get_node(t_list *head, int fd)
 
 char	*get_next_line(int fd)
 {
-	static t_list	head;
-	t_list			*node;
+	static t_gnl_list	head;
+	t_gnl_list			*node;
 	char			*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)

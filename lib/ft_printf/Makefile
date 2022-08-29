@@ -11,7 +11,7 @@ SRCS	=							\
 		ft_putchar_len.c			\
 		ft_putnbr_unsign.c			\
 		ft_putnbr_base_len.c		\
-		ft_printf_mem_address_len.c
+		ft_print_mem_address_len.c
 
 OBJS	= $(SRCS:.c=.o)
 

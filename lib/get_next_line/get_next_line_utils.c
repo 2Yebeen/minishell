@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-char	*gnl_clear_node(t_list *node)
+char	*gnl_clear_node(t_gnl_list *node)
 {
 	free(node->contents);
 	node->prev->next = node->next;
