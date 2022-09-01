@@ -59,7 +59,7 @@ int	node_type(int token_type)
 		node_type = TK_PIPE;
 	else if (token_type == HERE_DOC || token_type == APP_RD || token_type == INP_RD || token_type == OUT_RD)
 		node_type = TK_REDIR;
-	else if (token_type == L_PARENS || token_type == R_PARENS)
+	else if (token_type == PARENS) //|| token_type == R_PARENS)
 		node_type = TK_PARENS;
 	else if (token_type == STR || token_type == CMD)
 		node_type = TK_WORD;

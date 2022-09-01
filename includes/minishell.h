@@ -31,6 +31,7 @@
 
 enum	e_token
 {
+	NONE,
 	OR,
 	AND,
 	PIPE,
@@ -42,8 +43,7 @@ enum	e_token
 	OUT_RD,
 	APP_RD,
 	HERE_DOC,
-	L_PARENS,
-	R_PARENS
+	PARENS
 };
 
 enum	e_type

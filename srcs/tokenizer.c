@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   tokenizer.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yeblee <yeblee@student.42seoul.kr>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/26 01:52:34 by yeblee            #+#    #+#             */
-/*   Updated: 2022/08/28 01:00:04 by yeblee           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../includes/minishell.h"
 
 static int	is_space(t_minishell *sh);
@@ -36,7 +24,7 @@ static int	is_space(t_minishell *sh)
 	contents = (char *)sh->list->content;
 	if (sh->tokens && last_token(sh->tokens)->data[0] == '-')
 		return (FALSE);
-	if (contents[0] == ' ' || contents[0] == '\t' || contents[0] == '\n')
+	if (contents[0] == ' ')
 		return (TRUE);
 	return (FALSE);
 }

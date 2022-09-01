@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils_token.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yeblee <yeblee@student.42seoul.kr>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/26 02:56:32 by yeblee            #+#    #+#             */
-/*   Updated: 2022/08/28 14:16:50 by yeblee           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../includes/minishell.h"
 t_token	*new_token(char *data)
 {
@@ -87,9 +75,9 @@ int	token_type(char *content)
 	else if (ft_strncmp(content, ">", 1) == 0)
 		type = OUT_RD;
 	else if (ft_strncmp(content, "(", 1) == 0)
-		type = L_PARENS;
-	else if (ft_strncmp(content, ")", 1) == 0)
-		type = R_PARENS;
+		type = PARENS;
+	// else if (ft_strncmp(content, ")", 1) == 0)
+	// 	type = R_PARENS;
 	else if (ft_strncmp(content, "\"", 1) == 0)
 		type = STR;
 	else if (ft_strncmp(content, "'", 1) == 0)

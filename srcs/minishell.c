@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yeblee <yeblee@student.42seoul.kr>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/26 01:24:52 by yeblee            #+#    #+#             */
-/*   Updated: 2022/08/28 14:48:45 by yeblee           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../includes/minishell.h"
 
 static void	shell_loop(void);
@@ -49,8 +37,6 @@ int	main(int ac, char **av, char **envp)
 static void	shell_loop()
 {
 	char		*cli_str;
-	char		**line;
-	int			i;
 	t_minishell	sh;
 	
 	while (LOOP)
@@ -60,12 +46,7 @@ static void	shell_loop()
 		cli_str = readline("minsh$ ");
 		if (cli_str)
 		{
-			//if 끝에 백슬래시
-			line = ft_split(cli_str, ';');
-			i = 0;
-			while (line[i])
-			{
-				ft_lstadd_back(&sh.list,  get_token_list(line[i]));
+				ft_lstadd_back(&sh.list,  get_token_list(cli_str));
 				show_list_contents(sh.list);
 				// ft_lstclear(&sh.list);
 				
@@ -83,11 +64,10 @@ static void	shell_loop()
 				*/
 				sh.root = create_node(sh.tokens);
 				parsing(sh.root);
+				
 				show_node_data(sh.root, "root");
 				
 				// del_node(&sh.root);
-				i++;
-			}
 
 			add_history(cli_str); //shows the history of lines, by pressing arrows
 			free(cli_str);
@@ -100,7 +80,7 @@ static void	shell_loop()
 			printf("\033[1A");
 			printf("\033[7C");
 			printf("exit\n");
-			free(line);
+			free(cli_str);
 			exit(1);
 		}
 	}
@@ -188,3 +168,4 @@ static void	ft_perror(char *str)
 	printf("%s %s\n", str, strerror(errno));
 }
 */
+
