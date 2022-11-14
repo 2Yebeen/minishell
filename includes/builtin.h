@@ -1,11 +1,12 @@
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
-int		ft_echo(char **av);
-int		ft_cd(char *path);
-int		ft_pwd(void);
-export
-unset
-void	ft_env(char **envs);
-int		ft_exit(char *exit_code);
+int	ft_echo(t_token *command);
+int	ft_export(t_token *command);
+int	ft_unset(t_token *command);
+int	ft_env(t_token *command);
+int	ft_pwd(t_token *command);
+int	ft_cd(t_token *command);
+int	ft_exit(t_token *command);
+
 #endif

@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeblee <yeblee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/11 19:04:00 by jibang            #+#    #+#             */
-/*   Updated: 2022/10/24 21:36:41 by yeblee           ###   ########.fr       */
+/*   Created: 2022/11/02 16:07:15 by yeblee            #+#    #+#             */
+/*   Updated: 2022/11/03 02:38:39 by yeblee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strcmp(char *str1, char *str2)
 {
-	size_t			i;
+	int				i;
 	unsigned char	*u1;
 	unsigned char	*u2;
 
-	u1 = (unsigned char *)s1;
-	u2 = (unsigned char *)s2;
 	i = 0;
-	while (i < n && (u1[i] || u2[i]))
+	u1 = (unsigned char *)str1;
+	u2 = (unsigned char *)str2;
+	if (!str1 || !str2)
+		return (1);
+	while (u1[i] || u2[i])
 	{
 		if (u1[i] != u2[i])
-			break ;
+			return ((int)(u1[i] - u2[i]));
 		i++;
 	}
-	if (i == n)
-		return (0);
-	return ((int)(u1[i] - u2[i]));
+	return (0);
 }

@@ -1,18 +1,6 @@
 #ifndef STRUCT_H
 # define STRUCT_H
 
-# include <termios.h>
-# include "define.h"
-# include "../lib/libft/libft.h"
-
-typedef struct s_global
-{
-	int		status;
-	char	**env;
-	struct termios settings;
-	// char	*path;
-} t_global;
-
 typedef struct s_environ
 {
 	char				*key;
@@ -20,30 +8,55 @@ typedef struct s_environ
 	struct s_environ	*next;
 }	t_environ;
 
+typedef struct s_global
+{
+	int				status;
+	int				hd_cnt;
+	t_environ		*env_list;
+	char			*prev_path;
+	int				old_std_fdin;
+	int				old_std_fdout;
+	struct termios	nodisplay_set;
+	struct termios	display_set;
+}	t_global;
+
 typedef struct s_token
 {
-	enum e_token	type;
-	char			*data;
-	struct s_token	*next;
-}				t_token;
+	enum e_token_type	type;
+	int					hd_num;
+	char				*content;
+	struct s_token		*next;
+}	t_token;
 
-typedef struct s_node
+typedef struct s_tree_node
 {
-	enum e_type		type;
-	t_token			*tokens;
-	t_token			*words;
-	t_token			*redir;
-	int				state;
-	struct s_node	*left;
-	struct s_node	*right;
-}				t_node;
+	enum e_node_type	type;
+	t_token				*tokens;
+	t_token				*command;
+	t_token				*redir;
+	struct s_tree_node	*left;
+	struct s_tree_node	*right;
+}	t_tree_node;
 
-typedef struct s_minishell
+typedef struct s_info
 {
-	t_node		*root;
-	t_token		*tokens;
-	t_list		*list;
-	t_environ	*envp;
-}				t_minishell;
+	t_tree_node	*r_node;
+	t_token		*h_token;
+}	t_info;
+
+typedef struct s_pipe
+{
+	pid_t	pid;
+	int		cnt;
+	int		fd[2];
+	int		prev;
+	int		status;
+}	t_pipe;
+
+typedef struct s_aster
+{
+	char	*prefix;
+	char	*suffix;
+}	t_aster;
 
 #endif

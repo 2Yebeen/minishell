@@ -1,44 +1,40 @@
 #ifndef DEFINE_H
 # define DEFINE_H
 
-# define ERROR -1
-# define SUCCESS 0
+# define ERROR		-1
+# define NODISPLAY	0
+# define DISPLAY 	1
+# define READ_END	0
+# define WRITE_END	1
+# define TRUE		1
+# define SUCCESS	1
+# define FALSE		0
 
-# define FALSE	0
-# define TRUE	1
-
-# define LOOP 1
-
-# define ON 1
-# define OFF 0
-
-# define ERRCMD		"command not found"
-# define ERRDIR		"No such file or directory"
-# define ERR
-enum	e_token
+enum	e_token_type
 {
 	NONE,
 	OR,
 	AND,
 	PIPE,
 	CMD,
-	S_QUOTE,
+	OPTION,
 	D_QUOTE,
-	STR,
-	INP_RD,
-	OUT_RD,
-	APP_RD,
+	S_QUOTE,
+	INP_RDIR,
+	OUT_RDIR,
+	APP_RDIR,
 	HERE_DOC,
 	PARENS,
 };
 
-enum	e_type
+enum	e_node_type
 {
-	TK_OR,
-	TK_AND,
-	TK_PIPE,
-	TK_WORD,
-	TK_PARENS
+	TN_NONE,
+	TN_OR,
+	TN_AND,
+	TN_PIPE,
+	TN_WORD,
+	TN_PARENS,
 };
 
 #endif

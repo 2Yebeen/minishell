@@ -14,7 +14,7 @@ LINE_CLEAR		=	"\x1b[1A\x1b[M"
 NAME			= minishell
 
 CC				= cc
-CFLAGS			= -g3 -fsanitize=address #-Wall -Wextra -Werror
+CFLAGS			= -g3 -fsanitize=address -Wall -Wextra -Werror
 RM				= rm -rf
 
 LIB_READ		= -l readline
@@ -25,25 +25,27 @@ LIB_DIR			= lib/
 LIBFT			= libft/libft.a
 GNL				= get_next_line/libgnl.a
 FTPRINT			= ft_printf/libftprintf.a
-
 HEADERS			= includes
 
-BUILTIN			= cd echo env exit export pwd unset
-ENV				= environ get_env
-EXEC			= execution
-PARSER			= get_tokens parsing tokenizer
-UTILS			= node start_screen syntax_error token
+BUILTIN			= ft_echo ft_export ft_unset ft_env ft_pwd ft_cd ft_exit
+ENV				= environ get_envnode
+EXEC			= execution exec_and_or exec_parens exec_pipe exec_word
+EXPAN			= wildcard wildcard_utils wildcard_caseby
+PARSER			= tokenizer check_tokens set_btree
+REDIRECTION		= redirection redir_here_doc
+UTILS			= util_buff util_builtin util_error util_exec util_expand util_redirection util_signal util_token util_tree utils welcome_screen
 MAIN			= main
 
-SRCS 			= $(addsuffix .c, $(addprefix srcs/builtin/, $(BUILTIN))) \
-				$(addsuffix .c, $(addprefix srcs/env/, $(ENV))) \
-				$(addsuffix .c, $(addprefix srcs/exec/, $(EXEC))) \
-				$(addsuffix .c, $(addprefix srcs/parser/, $(PARSER))) \
-				$(addsuffix .c, $(addprefix srcs/utils/, $(UTILS))) \
-				$(addsuffix .c, $(addprefix srcs/, $(MAIN))) \
+SRCS 			= $(addsuffix .c, $(addprefix srcs/, $(MAIN)))			\
+				$(addsuffix .c, $(addprefix srcs/env/, $(ENV)))			\
+				$(addsuffix .c, $(addprefix srcs/exec/, $(EXEC)))		\
+				$(addsuffix .c, $(addprefix srcs/expan/, $(EXPAN)))		\
+				$(addsuffix .c, $(addprefix srcs/utils/, $(UTILS)))		\
+				$(addsuffix .c, $(addprefix srcs/parser/, $(PARSER)))	\
+				$(addsuffix .c, $(addprefix srcs/builtin/, $(BUILTIN)))	\
+				$(addsuffix .c, $(addprefix srcs/redirection/, $(REDIRECTION)))
 
 OBJS 			= $(SRCS:c=o)
-
 all: $(NAME)
 
 $(NAME): $(OBJS)
@@ -57,14 +59,13 @@ $(NAME): $(OBJS)
 	@make -j fclean -C $(LIB_DIR)/get_next_line
 	@echo $(GREEN) "$(NAME) is created!\n" $(EOC)
 
-%.o: %.c 
+%.o: %.c $(HEADERS)/$(NAME).h
 	@echo $(YELLOW) "Compiling...\t" $< $(EOC) $(LINE_CLEAR)
-	@mkdir -p $(DIR_O)
 	@$(CC) $(CFLAGS) -I $(HEADERS) -c $< -o $@
 
 clean:
 	@echo $(YELLOW) "Cleaning object files..." $(EOC)
-	@$(RM) $(DIR_O)
+	@$(RM) $(OBJS)
 	@echo $(RED) "Object files are cleaned!\n" $(EOC)
 
 fclean:	clean

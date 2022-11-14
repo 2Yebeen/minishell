@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_strcmpi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yeblee <yeblee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/11 19:04:00 by jibang            #+#    #+#             */
-/*   Updated: 2022/10/24 21:36:41 by yeblee           ###   ########.fr       */
+/*   Created: 2022/10/22 15:10:33 by yeblee            #+#    #+#             */
+/*   Updated: 2022/11/03 02:38:06 by yeblee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strcmpi(char *str1, char *str2)
 {
-	size_t			i;
-	unsigned char	*u1;
-	unsigned char	*u2;
+	int	i;
 
-	u1 = (unsigned char *)s1;
-	u2 = (unsigned char *)s2;
 	i = 0;
-	while (i < n && (u1[i] || u2[i]))
+	if (!str1 || !str2)
+		return (1);
+	while (str1[i] || str2[i])
 	{
-		if (u1[i] != u2[i])
-			break ;
+		if (ft_tolower(str1[i]) != ft_tolower(str2[i]))
+			return (1);
 		i++;
 	}
-	if (i == n)
-		return (0);
-	return ((int)(u1[i] - u2[i]));
+	return (0);
 }

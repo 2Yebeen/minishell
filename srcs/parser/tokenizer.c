@@ -1,35 +1,59 @@
 #include "../../includes/minishell.h"
 
-static int	is_space(t_minishell *sh);
+static void	pass_space(int *idx, char *line);
+static void	tab_to_space(char *str);
 
-int		tokenizer(t_minishell *sh)
+void	tokenizer(t_token **tokens, char *cmd_line)
 {
-	if (syntax_error(sh->list) == ERROR)
-	{
-		while (sh->list)
-			sh->list = sh->list->next;
-		ft_perror("syntax error!");
-		return (ERROR);
-	}
+	int		i;
+	char	*line;
 
-	sh->tokens = NULL;
-	while (sh->list)
+	i = 0;
+	tab_to_space(cmd_line);
+	line = ft_strtrim(cmd_line, " ");
+	while (line[i])
 	{
-		if (!is_space(sh))
-			insert_token(&sh->tokens, new_token((char *)sh->list->content));
-		sh->list = sh->list->next;
+		if (ft_strchr("\'\"", line[i]))
+			add_token(tokens, check_quote(&i, line));
+		else if (ft_strchr("()", line[i]))
+			add_token(tokens, check_parens(&i, line));
+		else if (ft_strchr("|&", line[i]))
+			add_token(tokens, check_and_or_pipe(&i, line));
+		else if (ft_strchr("<>", line[i]))
+			add_token(tokens, check_redir(&i, line));
+		else
+			add_token(tokens, check_cmd_or_option(&i, line));
+		pass_space(&i, line);
+		if (!*tokens)
+			break ;
+		if (i > (int)ft_strlen(line))
+			break ;
 	}
-	return (SUCCESS);
 }
 
-static int	is_space(t_minishell *sh)
+static void	pass_space(int *idx, char *line)
 {
-	char	*contents;
+	int		i;
 
-	contents = (char *)sh->list->content;
-	if (sh->tokens && last_token(sh->tokens)->data[0] == '-')
-		return (FALSE);
-	if (contents[0] == ' ')
-		return (TRUE);
-	return (FALSE);
+	i = *idx;
+	while (line[i])
+	{
+		if (line[i] != ' ')
+			break ;
+		i++;
+	}
+	*idx = i;
+}
+
+static void	tab_to_space(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\t')
+			str[i] = ' ';
+		i++;
+	}
 }
